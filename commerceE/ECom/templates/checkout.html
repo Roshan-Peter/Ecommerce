@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %}
+
+<h1 class="text-center text-dark mt-2"> Checkout </h1>
+
+
+
+<div class="p-2">
+    {% if result == "1" %}
+    <div class="alert alert-success" role="alert">
+        {{message}}
+    </div>
+    {% elif result == "0" %}
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    {% endif %}
+</div>
+
+<div class="container mt-5 d-flex justify-content-center align-items-center">
+    <div class="row justify-content-center">
+        <h3 class="mb-4 text-center">Product Details</h3>
+        {% for item in data %}
+        <a href="/shop-product?search={{item.product.id}}" class="col-md-4 mt-2 text-decoration-none">
+            <div class="text-center">
+                <p class="bold-text">{{ item.product.name }}</p>
+                <img src="Media/images/{{ item.product.image }}" class="img-fluid" style="width: 200px; height: 200px;" alt="{{ item.product.name }}">
+                <p>{{ item.product.price }}</p>
+            </div>
+        </a>
+        {% endfor %}
+
+    </div>
+</div>
+
+<h3 class="text-danger text-center">Total Amount: $ {{total}} </h3>
+
+
+<div class="container mt-5 p-3 d-flex justify-content-center align-align-items-center">
+    <div class="row">
+    <h2 class=" mb-4">Shipping Address</h2>
+    <p><strong>Counrty: </strong>{{address.country.name}}</p>
+    <p><strong>State / Province: </strong>{{address.state}}</p>
+    <p><strong>City: </strong>{{address.city}}</p>
+    <p><strong>Local Address: </strong>{{address.address}}</p>
+    <p><strong>Postal Code: </strong>{{address.postal}}</p>
+    <a class="btn btn-dark w-25" href="/address">Edit Address</a>
+    </div>
+</div>
+
+
+<div class="container mt-5 w-50">
+    <h2 class="text-center mb-4">Payment Details</h2>
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="cardName">Name on Card</label>
+            <input type="text" class="form-control" id="cardName" name="card_name" required>
+        </div>
+        <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" class="form-control" id="cardNumber" name="card_number" maxlength="16" required>
+        </div>
+        <div class="d-flex justify-content-lg-start gap-3">
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date (MM/YY)</label>
+                <input type="text" class="form-control" id="expiryDate" name="expiry_date" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="password" class="form-control" id="cvv" name="cvv" maxlength="4" required>
+            </div>
+        </div>
+        <p class="text-center text-danger mt-3 bold-text">{{message}}</p>
+        <button type="submit" class="btn btn-primary w-100">Submit Payment</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
