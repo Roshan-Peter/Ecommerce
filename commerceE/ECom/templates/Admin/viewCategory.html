@@ -1,0 +1,67 @@
+{% extends "Admin/authBase.html" %}
+{% block title %} Admins {% endblock %}
+{% block content %}
+
+
+<div class="p-2">
+
+    {% if del == "1" %}
+
+    <div class="alert alert-success" role="alert">
+        Deleted Successfully
+    </div>
+
+    {% elif del == "2" %}
+    <div class="alert alert-danger" role="alert">
+        Product Dosen't Exist or Deleted
+    </div>
+    {% endif %}
+
+</div>
+
+
+
+
+    <div class="container mt-5">
+        <h2>Categories</h2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in page_obj %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.name }}</td>
+                    <td><a href="/view-category?did={{item.id}}" class="page-link">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="/view-category?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="/view-category?page={{ num }}">{{ num }}</a>
+                </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="/view-category?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+
+  {% endblock %}

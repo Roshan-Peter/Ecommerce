@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %} Shop {% endblock %}
+{% block content %}
+
+
+<div class="d-flex justify-content-center align-items-center mt-4">
+    <form class="main-width" method="get">
+        <div class="d-flex">
+            <input type="text" name="search" placeholder="Search ...." class="form-control me-2 w-75">
+            <button class="btn btn-primary w-25">Search</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="untree_co-section product-section before-footer-section">
+    <div class="container">
+        <div class="row">
+
+            {% for item in page_obj %}
+            <div class="col-12 col-md-4 col-lg-3 mb-5">
+                <a class="product-item" href="/shop-product?search={{item.id}}">
+                    <img src="Media/images/{{ item.image }}" class="img-fluid product-thumbnail" style="width: 200px; height: 200px;">
+                    <h3 class="product-title">{{ item.name }}</h3>
+                    <strong class="product-price">$ {{ item.price }}</strong>
+
+                    <span class="icon-cross">
+                        {% load static %}
+                        <img src="{% static 'bootstrap/images/cross.svg' %}" class="img-fluid">
+                    </span>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+
+{% endblock %}

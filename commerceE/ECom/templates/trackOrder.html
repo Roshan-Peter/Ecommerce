@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Orders {% endblock %}
+
+{% block content %}
+
+
+<h1 class="text-center pt-5">Your Orders</h1>
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="row">
+
+        {% for item in booking %}
+        <div class="bg-white mt-2 p-3 rounded w-75" style="margin-left:12.5%">
+            <div class="container">
+                <h4 class="text-center mb-3">{{item.product.name}}</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-center align-items-center">
+                        <img src="Media/images/{{item.product.image}}" style="width:200px; height:200px;">
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <p>{{item.product.description}}</p>
+                        <p>Booked on: {{item.created_at}}</p>
+
+                        <a href="/invoice?search={{item.id}}" target="_blank" class="btn btn-dark">View Invoice</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+.main-width {
+    width: 50%;
+}
+
+
+
+@media (max-width: 768px) {
+    .main-width {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+    }
+}

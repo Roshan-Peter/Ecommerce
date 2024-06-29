@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %} Cart {% endblock %}
+{% block content %}
+
+
+<h1 class="text-center text-dark">Cart </h1>
+
+
+{% if result.1 %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        {% for item in result.1 %}
+        <div class="mb-4 mt-5 p-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="Media/images/{{ item.product.image }}" class="img-fluid product-image" alt="{{ item.product.name }}">
+                </div>
+                <div class="col-md-8">
+                    <h5>{{ item.product.name }}</h5>
+                    <p>{{ item.product.description }}</p>
+                    <p>Price: ${{ item.product.price }}</p>
+                    <p>Quantity: {{ item.count }}</p>
+                    <a href="/cart?delid={{item.product.id}}" class="btn btn-outline-primary">Remove</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+    <div class="mt-4 d-flex justify-content-center align-items-center">
+        <a href="/checkout" class="btn btn-dark">Continue to checkout</a>
+    </div>
+</div>
+
+
+
+{% else %}
+   <h3 class="text-center p-5">Cart is empty </h3>
+{% endif %}
+
+
+{% endblock %}

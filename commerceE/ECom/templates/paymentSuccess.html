@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Success {% endblock %}
+
+{% block content %}
+
+
+<h1 class="text-center pt-5">Order Placed </h1>
+<h3 class="text-center pt-5">This page will be automatically redirected </h3>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var navbar = document.getElementById('navbar');
+        var footer = document.getElementById('footer');
+        navbar.style.display = 'none';
+        footer.style.display = 'none';
+
+        setTimeout(function() {
+            window.location.reload();  
+        }, 2000);
+
+    });
+</script>
+
+
+{% endblock %}

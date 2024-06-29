@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+
+
+<h1 class="text-dark text-center mt-2">Profile</h1>
+{{model |safe}}
+
+
+<div class="container mt-4 d-flex justify-content-center align-items-center h-75">
+    <div class="card">
+        <div class="card-body">
+            <div class="profile-header">
+                <!--<img src="path_to_profile_image.jpg" alt="Profile Image" class="img-fluid"> -->
+                <h2 class="text-primary">{{ user.name }}</h2>
+                <p class="text-muted">{{ user.email }}</p>
+            </div>
+            <div class="profile-info">
+                <h5 class="fw-bold mt-4">Profile Information</h5>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Full Name:</strong> {{ user.name }} {{ user.last_name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone:</strong> {{ user.phone }}</p>
+            </div>
+
+            <h5 class="fw-bold mt-4">Actions</h5>
+
+
+            <div class="d-flex gap-3">
+                <p><strong>Address:</strong> {{ user.address }}</p>
+                <a class="text-center" href="/address">Edit Address</a>
+            </div>
+
+            <div class="d-flex gap-3">
+                <p><strong>Track Orders:</strong></p>
+                <a class="text-center" href="/track-orders">My orders</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
